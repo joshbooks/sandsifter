@@ -2,6 +2,8 @@
 
 # instruction injector frontend
 
+#!/usr/bin/env python2
+#^ Force python2 for now
 #
 # github.com/xoreaxeaxeax/sandsifter // domas // @xoreaxeaxeax
 #
