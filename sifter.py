@@ -1,5 +1,5 @@
-#!/usr/bin/env python2
-#^ Force python2 for now
+#!/usr/bin/python
+
 # instruction injector frontend
 
 #
@@ -8,7 +8,6 @@
 
 # run as sudo for best results
 
-from __future__ import print_function
 import signal
 import sys
 import subprocess
@@ -33,7 +32,7 @@ try:
 except NameError:
     raw_input = input  # Python 3
 
-INJECTOR = "./injector"
+INJECTOR = "injector"
 arch = ""
 
 OUTPUT = "./data/"
@@ -818,9 +817,16 @@ def main():
     if not os.path.exists(OUTPUT):
         os.makedirs(OUTPUT)
 
+    real_injector, errors = \
+        subprocess.Popen(
+                ['which', INJECTOR],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+                ).communicate()
+    real_injector = real_injector.replace('\n', '') # strip newline from shell output
     injector_bitness, errors = \
         subprocess.Popen(
-                ['file', INJECTOR],
+                ['file', real_injector],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE
                 ).communicate()
